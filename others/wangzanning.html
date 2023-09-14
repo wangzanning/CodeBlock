@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        span {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div>asdlfgsiofgadgsa</div>
+<input id="input"><button onclick="boldContext()">click</button>
+<div id="answer"></div>
+<div>这回ok了。。。</div>
+<script>
+  function boldContext() {
+    let testString = document.getElementById("input").value;
+    console.log(testString);
+    let findString = ['dg', 'adg', 'gs'];
+    let res = '';
+    //拼接所有可能的字符串
+    for (let i of findString) {
+      for (let j of findString) {
+        if (i[i.length - 1] === j[0]) {
+          let temp = i + j.slice(1);
+          findString.push(temp);
+        }
+      }
+    }
+
+    //从长到短去匹配
+    findString.reverse();
+    for (let i of findString) {
+      console.log(i);
+      //先转成大写，作为标记最长的匹配，最后都转化成小写
+      testString = testString.replace(i, `<span>${i.toUpperCase()}</span>`);
+    }
+    testString = testString.toLowerCase();
+    console.log(testString);
+    let answerNode = document.getElementById("answer");
+    let testNode = document.createTextNode(testString);
+    answerNode.appendChild(testNode);
+  }
+
+</script>
+</body>
+</html>

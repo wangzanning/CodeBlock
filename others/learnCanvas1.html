@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<div class="text">恭喜您获得1个BUG！</div>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    .text {
+        position: absolute;
+        left: 130px;
+        top: 35px;
+        z-index: -1;
+    }
+</style>
+<script>
+  const canvas = document.getElementById('canvas')
+  canvas.width = 600
+  canvas.height = 100
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = 'darkgray'
+  ctx.fillRect(0, 0, 400, 100)
+  ctx.fillStyle = '#fff'
+  ctx.fillText('刮刮乐', 180, 50)
+
+  let isDraw = false
+  canvas.onmousedown = function () {
+    isDraw = true
+  }
+  canvas.onmousemove = function (e) {
+    if (!isDraw) return
+    const x = e.pageX - canvas.offsetLeft
+    const y = e.pageY - canvas.offsetTop
+    ctx.globalCompositeOperation = 'destination-out'
+    ctx.arc(x, y, 10, 0, 2 * Math.PI)
+    ctx.fill()
+  }
+  canvas.onmouseup = function () {
+    isDraw = false
+  }
+</script>
+</body>
+</html>
